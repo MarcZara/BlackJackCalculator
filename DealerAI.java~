@@ -1,0 +1,68 @@
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class DealerAI
+{
+  String action = "";
+  public DealerAI ()
+  {
+  }
+  public String judgeAction (Hand h)
+  {
+    //BLACKJACK CONDITIONS
+      if((h.getCard(0) == 10 && h.getCard (1) == 11) || (h.getCard(0) == 11 && h.getCard (1) == 10))
+      {
+        action = "blackJack";
+      }
+      else
+      {
+    if (h.getCard(0) == 11 || h.getCard(1) == 11 || h.getCard(2) == 11 || h.getCard(3) == 11 || 
+        h.getCard(4) == 11 || h.getCard(5) == 11 || h.getCard(6) == 11 || h.getCard(7) == 11 || h.getCard(8) == 11 ||
+        h.getCard(9) == 11 ||h.getCard(10) == 11)
+    {
+      if (h.getHandValue() == 13 || h.getHandValue() == 14 || h.getHandValue() == 15 || h.getHandValue() == 16 ||
+          h.getHandValue() == 17 || h.getHandValue() == 23 || h.getHandValue() == 24 || h.getHandValue() == 25 ||
+          h.getHandValue() == 26 || h.getHandValue() == 22)
+        action = "hit";
+      
+      //Three card ace situation
+      else if ((h.getHandValue() >32 && h.getHandValue() <38) && h.getCard(2) == 11)
+      {
+        action = "hit";
+      }
+      //Four card ace situation
+      else if ((h.getHandValue() >43 && h.getHandValue() <48) && h.getCard(3) == 11)
+      {
+        action = "hit";
+      }
+      //Five card ace situation
+      else if ((h.getHandValue() >54 && h.getHandValue() <58) && h.getCard(4) == 11)
+      {
+        action = "hit";
+      }
+      //Six card ace situation
+      else if ((h.getHandValue() > 65 && h.getHandValue() <68) && h.getCard(5) == 11)
+      {
+        action = "hit";
+      }
+      //Seven card ace situation
+      else if (h.getHandValue() == 77 && h.getCard(6) == 11)
+      {
+        action = "hit";
+      }
+      else
+        action = "stand";
+    }
+    else 
+    {
+      if (h.getHandValue()<17)
+        action = "hit";
+      else if (h.getHandValue() > 21)
+        action = "bust";
+      else
+        action = "stand";
+    } 
+      }
+    return action;
+  }
+}
